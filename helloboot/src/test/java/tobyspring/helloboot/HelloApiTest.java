@@ -23,7 +23,22 @@ public class HelloApiTest {
 		Assertions.assertThat(res.getHeaders().getFirst(org.springframework.http.HttpHeaders.CONTENT_TYPE))
 				.startsWith(MediaType.TEXT_PLAIN_VALUE);
 		// body hello spring
-		Assertions.assertThat(res.getBody()).isEqualTo("hello Spring");
+		Assertions.assertThat(res.getBody()).isEqualTo("*Hello Spring");
+
+	}
+
+	@Test
+	void failshelloApi() {
+		TestRestTemplate rest = new TestRestTemplate();
+		ResponseEntity<String> res = rest.getForEntity("http://localhost:8080/hello?name=", String.class);
+
+		// status 200
+		Assertions.assertThat(res.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+		// header(content-type) test/plain
+		Assertions.assertThat(res.getHeaders().getFirst(org.springframework.http.HttpHeaders.CONTENT_TYPE))
+				.startsWith(MediaType.TEXT_PLAIN_VALUE);
+		// body hello spring
+		Assertions.assertThat(res.getBody()).isEqualTo("Hello Spring");
 
 	}
 
