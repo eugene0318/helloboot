@@ -25,9 +25,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tobyspring.config.MySpringBootApplication;
 
-@Configuration
-@ComponentScan
+@MySpringBootApplication
 public class HellobootApplication {
 //	@Bean
 //	public HelloController helloController(HelloService helloService) {
@@ -39,15 +39,7 @@ public class HellobootApplication {
 //		return new SimpleHelloService();
 //	}
 
-	@Bean
-	public ServletWebServerFactory servletWebServerFactory() {
-		return new TomcatServletWebServerFactory();
-	}
 
-	@Bean
-	public DispatcherServlet dispatcherServlet() {
-		return new DispatcherServlet();
-	}
 
 	public static void main(String[] args) {
 		MySpringApplication.run(HellobootApplication.class, args);
