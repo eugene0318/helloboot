@@ -1,37 +1,34 @@
 package tobyspring.config.autoconfig;
 
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.util.ClassUtils;
 
-import com.fasterxml.jackson.databind.util.ClassUtil;
-
+import ch.qos.logback.core.joran.conditional.Condition;
 import tobyspring.config.ConditionalMyOnClass;
+import tobyspring.config.MyAutoConfiguration;
 
-@Configuration
-@ConditionalMyOnClass("org.apache.catalina.startup.Tomcat")
-//@Conditional(TomcatWebServerConfig.TomcatCondition.class)
-public class TomcatWebServerConfig {
+@MyAutoConfiguration
+@ConditionalMyOnClass("org.eclipse.jetty.server.Server")
+//@Conditional(JettyWebServerConfig.JettyCondition.class)
+public class JettyWebServerConfig {
 
-	@Bean("tomcatWebServerFactory")
+	@Bean("jettyWebServerFactory")
 	public ServletWebServerFactory servletWebServerFactory() {
-		return new TomcatServletWebServerFactory();
+		return new JettyServletWebServerFactory();
 	}
 
-//	static class TomcatCondition implements Condition {
+//	static class JettyCondition implements org.springframework.context.annotation.Condition {
 //
 //		@Override
 //		public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
 //			// TODO Auto-generated method stub
-//			return ClassUtils.isPresent("org.apache.catalina.startup.Tomcat", context.getClassLoader());
+//			return ClassUtils.isPresent("org.eclipse.jetty.server.Server", context.getClassLoader());
 //		}
 //
 //	}
-
 }
